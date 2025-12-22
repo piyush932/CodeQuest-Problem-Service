@@ -13,7 +13,6 @@ function pingProblemController(req, res) {
 
 async function addProblem(req, res, next) {
   try {
-    console.log("Incoming request", req.body);
     const newproblem = await problemService.createProblem(req.body);
     return res.status(StatusCodes.CREATED).json({
       success: true,
@@ -54,10 +53,18 @@ async function getProblems(req, res, next) {
   }
 }
 
-function deleteProblem(req, res, next) {
-  return res.status(StatusCodes.NOT_IMPLEMENTED).json({
-    message: "Not implemented",
-  });
+async function deleteProblem(req, res, next) {
+  try {
+    const deletedProblem = await problemService.deleteProblem(req.params.id);
+    return res.status(StatusCodes.OK).json({
+      success: true,
+      error: {},
+      message: "Successfully deleted the problem",
+      data: deletedProblem,
+    });
+  } catch (error) {
+    next(error);
+  }
 }
 
 function updateProblem(req, res, next) {

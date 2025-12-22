@@ -9,6 +9,7 @@ class ProblemRepository {
         title: problemData.title,
         description: problemData.description,
         testCases: problemData.testCases ? problemData.testCases : [],
+        difficulty: problemData.difficulty,
       });
       return problem;
     } catch (error) {
@@ -43,6 +44,22 @@ class ProblemRepository {
       throw error;
     }
   }
+
+  async deleteProblem(id) {
+        try {
+            if (!mongoose.Types.ObjectId.isValid(id)) {
+              throw new NotFound("Problem", id);
+            }
+            const deletedProblem = await Problem.findByIdAndDelete(id);
+            if(!deletedProblem) {
+                throw new NotFound("problem", id);
+            }
+            return deletedProblem;
+        } catch (error) {
+            console.log(error);
+            throw error;
+        }
+    }
 }
 
 module.exports = ProblemRepository;
