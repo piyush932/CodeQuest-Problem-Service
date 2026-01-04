@@ -30,8 +30,8 @@ class ProblemService {
     return problem;
   }
 
-  async updateProblem(problemId) {
-    const problem = await this.problemRepository.updateProblem(problemId);
+  async updateProblem(problemId,updatedData) {
+    const problem = await this.problemRepository.updateProblem(problemId,updatedData);
     return problem;
   }
 }

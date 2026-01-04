@@ -8,7 +8,7 @@ problemRouter.get('/ping',problemController.pingProblemController);
 
 problemRouter.get('/:id',problemController.getProblem);
 
-problemRouter.put('/:id',problemController.updateProblem);
+problemRouter.patch('/:id',problemController.updateProblem);
 
 problemRouter.get('/',problemController.getProblems);
 
