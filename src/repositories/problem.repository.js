@@ -46,20 +46,38 @@ class ProblemRepository {
   }
 
   async deleteProblem(id) {
-        try {
-            if (!mongoose.Types.ObjectId.isValid(id)) {
-              throw new NotFound("Problem", id);
-            }
-            const deletedProblem = await Problem.findByIdAndDelete(id);
-            if(!deletedProblem) {
-                throw new NotFound("problem", id);
-            }
-            return deletedProblem;
-        } catch (error) {
-            console.log(error);
-            throw error;
-        }
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new NotFound("Problem", id);
+      }
+      const deletedProblem = await Problem.findByIdAndDelete(id);
+      if (!deletedProblem) {
+        throw new NotFound("problem", id);
+      }
+      return deletedProblem;
+    } catch (error) {
+      console.log(error);
+      throw error;
     }
+  }
+
+  async updateProblem(id,updatedData) {
+    try {
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        throw new NotFound("Problem", id);
+      }
+      const updatedProblem = await Problem.findByIdAndUpdate(id, updatedData, {
+        new: true,
+      });
+      if (!updatedProblem) {
+        throw new NotFound("Problem", id);
+      }
+      return updatedProblem;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
 }
 
 module.exports = ProblemRepository;
